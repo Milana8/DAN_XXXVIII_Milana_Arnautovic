@@ -110,22 +110,23 @@ namespace Zadatak_1
         /// <param name="o"></param>
         public static void Loading(object o)
         {
+                Console.WriteLine("The truck {0} is waiting to be loaded", o);
+                Manager.WaitOne();
+                Console.WriteLine("The truck {0} is loading", o);
+                loadtime = random.Next(500, 5000);
+                loadTimes.Add(loadtime);
+                Console.WriteLine("The truck {0} finished loading. Loading time: {1} milliseconds", o, loadtime);
+                Manager.Release(1);
 
-            Console.WriteLine("The truck {0} is waiting to be loaded", o);
-            Manager.WaitOne();
-            Console.WriteLine("The truck {0} is loading", o);
-            loadtime = random.Next(500, 5000);
-            loadTimes.Add(loadtime);
-            Console.WriteLine("The truck {0} finished loading. Loading time: {1} milliseconds", o, loadtime);
-            Manager.Release(1);
+                if ((int)o == 10)
+                {
 
-            if ((int)o == 10)
-            {
+                    Console.WriteLine("Loading is complete.");
+                    waitHande.Set();
 
-                Console.WriteLine("Loading is complete.");
-                waitHande.Set();
-
-            }
+                }
+            
+            
 
 
         }
